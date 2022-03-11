@@ -20,12 +20,14 @@ def bubble_sort(lista):
     global passadas, comps, trocas
     passadas = comps = trocas = 0
 
+    limite = 1  # Controla até onde vai o loop for
+
     # Loop eterno (não sabemos quantas passadas serão necessárias)
     while True:
         passadas += 1
         trocou = False  # Controla se houve ou não trocas
         # Percurso da lista da primeira até a PENÚLTIMA posição
-        for pos in range(len(lista) - 1):
+        for pos in range(len(lista) - limite):
             comps += 1
             if lista[pos] > lista[pos + 1]:
                 # Troca os elementos de posição
@@ -37,11 +39,14 @@ def bubble_sort(lista):
         if not trocou:
             break
 
+        limite += 1  # Incrementa o limite do loop
+
+
 ########################################################################        
 
 #nums = [7, 4, 2, 9, 0, 6, 5, 3, 1, 8]
-#nums = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
-nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+nums = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+#nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 bubble_sort(nums)
 print(nums)
 print(f"passadas: {passadas}, comparações: {comps}, trocas: {trocas}")
