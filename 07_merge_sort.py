@@ -5,10 +5,16 @@
 #   Em seguida, usando a técnica de mesclagem (merge), "remonta" o vetor,
 #   dessa vez com os elementos já em ordem.
 
+from data.nomes_desord import nomes
+from time import time
+import tracemalloc
+
+divs = juncoes = comps = 0
+
 def merge_sort(lista):
 
-    # print(f"Lista recebida: {lista}")
-
+    global divs, juncoes, comps
+    
     # Só continua se o comprimento da lista for maior que 1
     if len(lista) <= 1: return lista
 
@@ -19,6 +25,8 @@ def merge_sort(lista):
     sublista_esq = lista[:meio]
     # Cópia da segunda metade do vetor
     sublista_dir = lista[meio:]
+
+    divs += 1
 
     # Chamamos recursivamente a função para que ela continue
     # repartindo cada uma das sublistas em metades
@@ -34,6 +42,7 @@ def merge_sort(lista):
     while pos_esq < len(sublista_esq) and pos_dir < len(sublista_dir):
         # O elemento que se encontra na posição da sublista esquerda
         # é menor que o que se encontra na posição da sublista direita
+        comps += 1
         if sublista_esq[pos_esq] < sublista_dir[pos_dir]:
             ordenada.append(sublista_esq[pos_esq])
             pos_esq += 1
@@ -50,6 +59,8 @@ def merge_sort(lista):
     # Sobra à direita
     else: sobra = sublista_dir[pos_dir:]
 
+    juncoes += 1
+
     # O resultado final é a concatenação da lista ordenada
     # com a sobra
     return ordenada + sobra
@@ -57,5 +68,27 @@ def merge_sort(lista):
 ###############################################################
 
 nums = [7, 4, 2, 9, 0, 6, 5, 3, 1, 8]
+# nums = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+# nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 resultado = merge_sort(nums)
 print(resultado)
+print(f"Divisões: {divs}, comparações: {comps}, junções: {juncoes}")
+
+divs = juncoes = comps = 0
+
+hora_ini = time()
+tracemalloc.start() # Inicia o monitoramento da memória
+
+nomes_ord = merge_sort(nomes)
+
+# Captura as estatísticas de uso da memória
+mem_atual, mem_pico = tracemalloc.get_traced_memory()
+hora_fim = time()
+
+print(nomes_ord[:100]) # Imprime só os 100 primeiros nomes
+
+print(f"Tempo gasto para ordenar: {(hora_fim - hora_ini) * 1000}ms")
+print(f"Pico de memória: { mem_pico / 1024 / 1024 } MB")
+print(f"Divisões: {divs}, comparações: {comps}, junções: {juncoes}")
+
+

@@ -47,7 +47,8 @@ def selection_sort(lista):
 
 ###################################################################
 
-nums = [7, 4, 2, 9, 0, 6, 5, 3, 1, 8]
+#nums = [7, 4, 2, 9, 0, 6, 5, 3, 1, 8]
+nums = [7, 4, 2, 9, 0, 6, 8, 3, 1, 5]
 #nums = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
 # Pior caso
@@ -60,9 +61,9 @@ selection_sort(nums)
 print(nums)     
 print(f"passadas: {passadas}, comparações: {comps}, trocas: {trocas}")  
 
-hora_ini = time()
-selection_sort(nomes)
-hora_fim = time()
-print(f"Tempo gasto para ordenar: {(hora_fim - hora_ini) * 1000}ms")
-print(nomes)
-print(f"passadas: {passadas}, comparações: {comps}, trocas: {trocas}")
+# hora_ini = time()
+# selection_sort(nomes)
+# hora_fim = time()
+# print(f"Tempo gasto para ordenar: {(hora_fim - hora_ini) * 1000}ms")
+# print(nomes)
+# print(f"passadas: {passadas}, comparações: {comps}, trocas: {trocas}")
