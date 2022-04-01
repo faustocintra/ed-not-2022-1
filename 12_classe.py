@@ -7,6 +7,7 @@
 # esta.
 
 from math import pi
+from msilib.schema import Property
 
 class FormaGeometrica:
 
@@ -28,11 +29,78 @@ class FormaGeometrica:
         self.altura = altura
         self.tipo = tipo
 
-######################################################
+    # # Métodos setter (ajustam o valor de atributos __privados)
+
+    # def set_base(self, valor):
+    #     if type(valor) not in [int, float] or valor <= 0:
+    #         raise Exception("* A base deve ser numérica e maior que zero.")
+    #     self.__base = valor
+
+    # def set_altura(self, valor):
+    #     if type(valor) not in [int, float] or valor <= 0:
+    #         raise Exception("* A altura deve ser numérica e maior que zero.")
+    #     self.__altura = valor
+
+    # def set_tipo(self, valor):
+    #     if valor not in ["R", "T", "E"]:
+    #         raise Exception("* O tipo deve ser 'R', 'T' ou 'E'.")
+    #     self.__tipo = valor
+
+    # # Métodos getter (retornam o valor de atributos __privados)
+
+    # def get_base(self):
+    #     return self.__base
+
+    # def get_altura(self):
+    #     return self.__altura
+
+    # def get_tipo(self):
+    #     return self.__tipo
+
+    # Propriedades
+
+    @property   # Annotation
+    def base(self):             # getter disfarçado
+        return self.__base
+
+    @base.setter
+    def base(self, valor):     # setter disfarçado
+        if type(valor) not in [int, float] or valor <= 0:
+           raise Exception("* A base deve ser numérica e maior que zero.")
+        self.__base = valor
+
+    @property
+    def altura(self):
+        return self.__altura
+
+    @altura.setter
+    def altura(self, valor):
+        if type(valor) not in [int, float] or valor <= 0:
+            raise Exception("* A altura deve ser numérica e maior que zero.")
+        self.__altura = valor   
+
+    @property
+    def tipo(self):
+        return self.__tipo
+
+    @tipo.setter 
+    def tipo(self, valor):
+        if valor not in ["R", "T", "E"]:
+            raise Exception("* O tipo deve ser 'R', 'T' ou 'E'.")
+        self.__tipo = valor
+
+######################################################################
 
 # Criando objetos a partir da classe
 forma1 = FormaGeometrica(12, 7, "R")    # Isso chama __init__()
 forma2 = FormaGeometrica(7.5, 8.2, "T")
+
+# forma1.set_base("farinha")
+
+# print(f"forma1: base {forma1.get_base()}, altura {forma1.get_altura()}, tipo {forma1.get_tipo()}")
+# print(f"forma2: base {forma2.get_base()}, altura {forma2.get_altura()}, tipo {forma2.get_tipo()}")
+
+forma2.altura = "dois palmos"
 
 print(f"forma1: base {forma1.base}, altura {forma1.altura}, tipo {forma1.tipo}")
 print(f"forma2: base {forma2.base}, altura {forma2.altura}, tipo {forma2.tipo}")
