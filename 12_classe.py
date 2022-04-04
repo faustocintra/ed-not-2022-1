@@ -89,6 +89,22 @@ class FormaGeometrica:
             raise Exception("* O tipo deve ser 'R', 'T' ou 'E'.")
         self.__tipo = valor
 
+    ##########################################################
+
+    # Método para cálculo da área da forma geométrica
+    # def calc_area(self):
+
+    # Redefinindo como propriedade somente-leitura (só tem getter)
+    @property
+    def area(self):
+        from math import pi
+        if(self.tipo == 'R'):       # Retângulo
+            return self.base * self.altura
+        elif(self.tipo == 'T'):     # Triângulo
+            return self.base * self.altura / 2
+        else:                       # Elipse
+            return (self.base / 2) * (self.altura / 2) * pi
+
 ######################################################################
 
 # Criando objetos a partir da classe
@@ -100,7 +116,7 @@ forma2 = FormaGeometrica(7.5, 8.2, "T")
 # print(f"forma1: base {forma1.get_base()}, altura {forma1.get_altura()}, tipo {forma1.get_tipo()}")
 # print(f"forma2: base {forma2.get_base()}, altura {forma2.get_altura()}, tipo {forma2.get_tipo()}")
 
-forma2.altura = "dois palmos"
+# forma2.altura = "dois palmos"
 
-print(f"forma1: base {forma1.base}, altura {forma1.altura}, tipo {forma1.tipo}")
-print(f"forma2: base {forma2.base}, altura {forma2.altura}, tipo {forma2.tipo}")
+print(f"forma1: base {forma1.base}, altura {forma1.altura}, tipo {forma1.tipo}, área {forma1.area}")
+print(f"forma2: base {forma2.base}, altura {forma2.altura}, tipo {forma2.tipo}, , área {forma2.area}")
