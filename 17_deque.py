@@ -49,3 +49,7 @@ ultimo = deque.peek_back()
 
 print('Próximo: ', proximo)
 print('Último: ', ultimo)
+
+# Imprime o deque
+print(deque)
+
