@@ -146,6 +146,66 @@ class DoublyLinkedList:
         # Retorna o dado de usuário armazenado no nodo removido
         return removed.data
 
+    """
+        Método de atalho para remoção do início da lista
+    """
+    def remove_head(self):
+        return self.remove(0)
+
+    """
+        Método de atalho para remoção do final da lista
+    """
+    def remove_tail(self):
+        return self.remove(self.count - 1)
+
+    """
+        Método para consultar o valor de um nodo, dada a sua posição
+    """
+    def peek(self, pos):
+        # Verifica se a posição passada está nos limites da lista
+        if self.is_empty or pos < 0 or pos > self.count - 1:
+            raise Exception('ERRO: posição inválida para consulta')
+
+        # Manda encontrar o nodo correspondente à posição
+        node = self.__find_node(pos)
+
+        # Retorna o valor armazenado no nodo
+        return node.data
+
+    """
+        Método de atalho para consultar o valor do primeiro nodo
+    """
+    def peek_head(self):
+        return self.peek(0)
+
+    """
+        Método de atalho para consultar o valor do último nodo
+    """
+    def peek_tail(self):
+        return self.peek(self.count - 1)
+
+    
+    """
+        Método que retorna a PRIMEIRA POSIÇÃO, a partir da posição
+        inicial de busca, onde há a ocorrência de um valor.
+        Caso não encontre, retorna -1.     
+    """
+    def index(self, val, start_pos = 0):
+        
+        # A posição inicial de busca deve estar dentro dos limites da lista
+        if start_pos < 0 or start_pos > self.count - 1: return -1
+
+        node = None
+
+        for pos in range(start_pos, self.count):
+            if node is None: node = self.__find_node(start_pos)
+            else: node = node.next
+            
+            # O valor armazenado no nodo corresponde ao valor buscado;
+            # retorna a posição do nodo
+            if node.data == val: return pos
+
+        return -1   # Nada encontrado
 
     """
         Função privada que encontra o nodo da posição especificada
