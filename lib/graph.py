@@ -48,6 +48,59 @@ class Graph:
             self.__data[dest].add(edge2)
 
     """
+        Método que retorna o grau (número de arestas) 
+        de um vértice
+    """
+    def degree(self, vertex):
+        # Se vertex existir no dicionário self.__data,
+        # retorna o número de elementos do conjunto de
+        # arestas correspondente
+        if vertex in self.__data: return len(self.__data[vertex])
+        # vertex não existe, retorna None
+        else: return 0
+
+    """
+        Método que verifica se um determinado vértice é referenciado
+        por outro
+    """
+    def __is_referenced(self, vertex):
+        for vtx_ref in self.__data.keys():    # Percorrendo o dicionário
+            for edge in self.__data[vtx_ref]: # Percorrendo as tuplas
+                # Verifica se o primeiro elemento da tupla é o vértice
+                if vertex == edge[0]: return True
+        return False
+    
+    """
+        Método que remove um vértice do grafo
+    """
+    def remove_vertex(self, vertex):
+        # Para ser removido, um vértice deve ter grau 0,
+        # ou seja, não ter arestas associadas, nem ser referenciado
+        # por outro vértice
+        if self.degree(vertex) > 0:
+            raise Exception('ERRO: não é possível remover vértice de grau > 0.')
+        elif self.__is_referenced(vertex):
+            raise Exception('ERRO: não é possível remover um vértice referenciado por outro.')
+        # Grau 0, sem referências, remoção OK
+        elif vertex in self.__data: del self.__data[vertex]
+
+    """
+        Método que remove uma aresta do grafo
+    """
+    def remove_edge(self, origin, dest, rel = None):
+        if rel is not None: rel = rel.upper()   # Coloca rel em maiúsculas
+
+        edge1 = (dest, rel)
+        # Retira a tupla edge1 do conjunto de arestas do vértice de origem
+        self.__data[origin].discard(edge1)
+        
+        # Se o grafo não for direcionado, precisamos remover também a aresta
+        # em sentido contrário
+        if not self.__is_directed:
+            edge2 = (origin, rel)
+            self.__data[dest].discard(edge2)
+    
+    """
         Método que representa o grafo como string
     """
     def __str__(self):
@@ -56,32 +109,3 @@ class Graph:
         return output
 
 ##################################################
-
-familia = Graph(True)   # Grafo será direcionado
-print(familia)
-
-familia.add_vertex('Ariovaldo')
-familia.add_vertex('Clementina')
-familia.add_vertex('Aristeu')
-familia.add_vertex('Clementina') # Tentativa de inserção repetida
-
-print(familia)
-
-familia.add_edge('Ariovaldo', 'Clementina', 'casado com')
-familia.add_edge('Ariovaldo', 'Aristeu', 'pai')
-familia.add_edge('Clementina', 'Ariovaldo', 'casada com')
-familia.add_edge('Clementina', 'Cleusa', 'mãe')
-familia.add_edge('Cleusa', 'Clementina', 'filha')
-
-print('-----------------------')
-print(familia)
-
-# Não direcionado, equivale a cidades = Graph(false)
-cidades = Graph()
-
-cidades.add_edge('Franca', 'Claraval')
-cidades.add_edge('Franca', 'Cristais Paulista', 'Rod. Candido Portinari')
-
-print('-----------------------')
-print(cidades)
-
