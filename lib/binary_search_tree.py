@@ -60,3 +60,100 @@ class BinarySearchTree:
             # Senão, passa a considerar o nodo da direita como raiz
             else: self.__insert_node(root.right, inserting)
 
+    """
+        Método que percorre a árvore em-ordem
+        1º: percorre recursivamente a subárvore esquerda em-ordem
+        2º: visita a raiz
+        3º: percorre recursivamente a subárvore direita em-ordem
+    """
+    def in_order_traversal(self, root = False):
+        newline = False
+
+        # Se root for False, começamos pela raiz da árvore
+        if root is False: 
+            root = self.__root
+            newline = True
+
+        if root is not None:                    # Se houver valor na raiz
+            self.in_order_traversal(root.left)  # Visita a subárvore esquerda
+            # end=' ' evita a quebra de linha no final do print
+            print(str(root.data), end=' ')         
+            self.in_order_traversal(root.right) # Visita a subárvore direita
+
+        if newline: print('\n')
+
+    """
+        Método que percorre a árvore pré-ordem
+        1º: visita a raiz
+        2º: percorre recursivamente a subárvore esquerda pré-ordem
+        3º: percorre recursivamente a subárvore direita pré-ordem
+    """
+    def pre_order_traversal(self, root = False):
+        newline = False
+
+        # Se root for False, começamos pela raiz da árvore
+        if root is False: 
+            root = self.__root
+            newline = True
+
+        if root is not None:                    # Se houver valor na raiz
+            # end=' ' evita a quebra de linha no final do print
+            print(str(root.data), end=' ')
+            self.pre_order_traversal(root.left)  # Visita a subárvore esquerda
+            self.pre_order_traversal(root.right) # Visita a subárvore direita
+
+        if newline: print('\n')
+
+    """
+        Método que percorre a árvore pós-ordem
+        1º: percorre recursivamente a subárvore esquerda pós-ordem
+        2º: percorre recursivamente a subárvore direita pós-ordem
+        3º: visita a raiz
+    """
+    def post_order_traversal(self, root = False):
+        newline = False
+
+        # Se root for False, começamos pela raiz da árvore
+        if root is False: 
+            root = self.__root
+            newline = True
+
+        if root is not None:                    # Se houver valor na raiz
+            self.post_order_traversal(root.left)  # Visita a subárvore esquerda
+            self.post_order_traversal(root.right) # Visita a subárvore direita
+            # end=' ' evita a quebra de linha no final do print
+            print(str(root.data), end=' ')
+
+        if newline: print('\n')
+
+    
+
+################################################################################
+
+arvore = BinarySearchTree()
+
+arvore.insert(37)
+arvore.insert(20)
+arvore.insert(51)
+arvore.insert(3)
+arvore.insert(43)
+arvore.insert(0)
+arvore.insert(72)
+arvore.insert(11)
+arvore.insert(40)
+arvore.insert(8)
+arvore.insert(66)
+arvore.insert(19)
+arvore.insert(75)
+
+print('Em-ordem:')
+arvore.in_order_traversal()
+print('-----------------------------------------------------------')
+
+print('Pré-ordem:')
+arvore.pre_order_traversal()
+print('-----------------------------------------------------------')
+
+print('Pós-ordem:')
+arvore.post_order_traversal()
+print('-----------------------------------------------------------')
