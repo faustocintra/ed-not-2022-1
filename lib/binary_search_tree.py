@@ -126,34 +126,57 @@ class BinarySearchTree:
 
         if newline: print('\n')
 
-    
+    """
+        Método PRIVADO que procura por um nodo que contêm um valor
+        fornecido (key) e, retorna esse nodo, caso o encontre.
+        Se o nodo não existir, retorna None.
+    """
+    def __search_node(self, root, key):
+        # 1º caso: árvore vazia
+        if root is None: return None
+        # 2º caso: o valor de key é MENOR que o valor na raiz
+        # Continua a buscar recursivamente pela subárvore ESQUERDA
+        if key < root.data: return self.__search_node(root.left, key)
+        # 3º caso: o valor de key é MAIOR que o valor na raiz
+        # Continua a buscar recursivamente pela subárvore DIREITA
+        if key > root.data: return self.__search_node(root.right, key)
+        # 4º caso: o valor de key é IGUAL ao valor na raiz
+        # ENCONTROU O NODO; retorna o nodo root
+        return root
 
-################################################################################
+    """
+        Método PÚBLICO que determina se um dado valor (key) existe
+        ou não na árvore
+    """
+    def exists(self, key):
+        node = self.__search_node(self.__root, key)
+        return (node is not None)
 
-arvore = BinarySearchTree()
+    """
+        Método que retorna o MENOR nodo de uma subárvore e sua profundidade
+        Esse método deveria ser privado, mas vamos deixá-lo público para testar
+    """
+    def min_node(self, root = None):
+        if root is None: root = self.__root
+        node = root
+        depth = 0   # Profundidade
+        while node is not None and node.left is not None:
+            node = node.left
+            depth += 1
+        return (node, depth)    # Isto é uma tupla
 
-arvore.insert(37)
-arvore.insert(20)
-arvore.insert(51)
-arvore.insert(3)
-arvore.insert(43)
-arvore.insert(0)
-arvore.insert(72)
-arvore.insert(11)
-arvore.insert(40)
-arvore.insert(8)
-arvore.insert(66)
-arvore.insert(19)
-arvore.insert(75)
+    """
+        Método que retorna o MAIOR nodo de uma subárvore e sua profundidade
+        Esse método deveria ser privado, mas vamos deixá-lo público para testar
+    """
+    def max_node(self, root = None):
+        if root is None: root = self.__root
+        node = root
+        depth = 0   # Profundidade
+        while node is not None and node.right is not None:
+            node = node.right
+            depth += 1
+        return (node, depth)    # Isto é uma tupla
 
-print('Em-ordem:')
-arvore.in_order_traversal()
-print('-----------------------------------------------------------')
-
-print('Pré-ordem:')
-arvore.pre_order_traversal()
-print('-----------------------------------------------------------')
-
-print('Pós-ordem:')
-arvore.post_order_traversal()
-print('-----------------------------------------------------------')
+    # Os métodos de remoção podem ser vistos no repositório do semestre passado:
+    # https://github.com/fcintra2/ed-not-2021-2
